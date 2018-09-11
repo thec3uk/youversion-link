@@ -1,0 +1,6 @@
+.fly/
+
+node_modules
+lib
+
+*.swp

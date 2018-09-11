@@ -1,0 +1,29 @@
+{
+  "name": "youversion-link",
+  "version": "1.0.0",
+  "description": "Redirect Management for youversion events",
+  "files": [
+    "lib/*"
+  ],
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "fly test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thec3uk/youversion-link.git"
+  },
+  "keywords": [
+    "redirect",
+    "fly.io"
+  ],
+  "author": "Andrew Miller",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thec3uk/youversion-link/issues"
+  },
+  "homepage": "https://github.com/thec3uk/youversion-link#readme",
+  "devDependencies": {
+    "typescript": "^2.8.1"
+  }
+}

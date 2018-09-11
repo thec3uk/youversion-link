@@ -2,24 +2,29 @@ import { mount } from "@fly/fetch/mount"
 import { proxy } from "@fly/fetch/proxy"
 import { Collection } from "@fly/data"
 
-const storeEventLink = function(req, init) {
+const storeEventLink = async function(req, init) {
     if (req.method === 'POST') {
-        const link = req.json()
-        console.log(await link)
+        const link = await req.json()
         const eventLinkStore = new Collection('eventLinkStore')
-        const res = eventLinkStore.put('eventLink', link)
-        console.log(res)
-        return new Response('Done',{ headers: {"content-type": "application/json"}})
+        let res = await eventLinkStore.put('eventLink', link)
+        return new Response(`${res}`,{ headers: {"content-type": "application/json"}})
     } else {
         return new Response('Use a POST request for this request')
     } 
 }
 
-const redirectToEvent = function(req, init) {
+const redirectToEvent = async function(req, init) {
     const eventLinkStore = new Collection('eventLinkStore')
-    const eventLink = eventLinkStore.get('eventLink')
-    console.log(eventLink)
-    return proxy(req, 'https://www.google.com')
+    const eventLink = await eventLinkStore.get('eventLink')
+    console.log(`${eventLink.link}`) 
+    //return await proxy(req, `${eventLink.link}`) 
+    //return await fetch(eventLink.link)
+    return new Response('Redirecting', {
+        headers: {
+            'Location': eventLink.link
+        },
+        status: 303
+    })
 }
 
 const mounts = mount({

@@ -1,19 +1,32 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="https://unpkg.com/teutonic-css@0.7.5/teutonic.min.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
         <title>Youversion Link</title>
     </head>
 
-    <body>
-        <form name="contact" netlify>
-            <p>
-                <label>YouVersion link <input type="url" name="link" /></label>
-            </p>
-            <p>
-                <button type="submit">Send</button>
-            </p>
-        </form>
+    <body class="tinted-bg-prime">
 
+        <div class="grid gap_l height_xl text-sans" style="height: 100vh;">
+            <div class="start-2 end-12 self-end">
+                <div class="text-hero_m text-center">YouVersion Link Updater</div>
+                <hr class="ma-v_m">
+            </div>
+            <div class="start-3 end-11">
+                <div class="box bs_l bo-t_xs">
+                    <form  name="youversion" action="/store" method="POST">
+                        <div class="flex">
+                            <label class="box span-2 text-sans text-bold text-select-all span-half-t span-full-p text-keep" style="overflow:scroll;">https://youersion.thec3.uk</label>
+                            <label class="hide-t span-1 text-sans text-select-none ma-v_xs ma-h_s collapse-p"><i class="fas fa-arrow-right fa-2x"></i></label> 
+                            <input type="url" name="link" placeholder="https://www.bible.com/events/XXXXX" class="input span-third span-half-t span-full-p"/>
+                            <input class="button prime span-1 span-half-t span-full-p" type="submit" value="Update Link" />
+                            <a class="button ghost span-1 span-half-t span-full-p" target="_blank" href="https://youversion.thec3.uk">Test it</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </body>
 
 </html>

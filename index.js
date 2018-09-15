@@ -2,26 +2,42 @@ import { mount } from "@fly/fetch/mount"
 import { proxy } from "@fly/fetch/proxy"
 import { Collection } from "@fly/data"
 
+
+async function getTemplate() {
+    const resp = await fetch("file://index.html")
+    return await resp.text()
+}
+
 const storeEventLink = async function(req, init) {
+    const template = await getTemplate()
+    const doc = Document.parse(template)
+    const html = doc.documentElement.outerHTML
     if (req.method === 'POST') {
-        const link = await req.json()
+        const data = await req.formData()
         const eventLinkStore = new Collection('eventLinkStore')
-        let res = await eventLinkStore.put('eventLink', link)
-        return new Response(`${res}`,{ headers: {"content-type": "application/json"}})
+        let res = await eventLinkStore.put('eventLink', data.get('link'))
+        return new Response(`${res}`,{ 
+            headers: {
+                "Location": req.url
+            },
+            status: 303
+        })
     } else {
-        return new Response('Use a POST request for this request')
+        return new Response(html, { headers: {"Content-Type": "text/html"}})
     } 
 }
 
 const redirectToEvent = async function(req, init) {
     const eventLinkStore = new Collection('eventLinkStore')
     const eventLink = await eventLinkStore.get('eventLink')
-    console.log(`${eventLink.link}`) 
-    //return await proxy(req, `${eventLink.link}`) 
-    //return await fetch(eventLink.link)
+    if (eventLink === undefined) {
+        return new Response('Not Found', {status: 404})
+    }
+    console.log(eventLink)
+    console.log(`Redirect link: ${eventLink}`) 
     return new Response('Redirecting', {
         headers: {
-            'Location': eventLink.link
+            'Location': eventLink
         },
         status: 303
     })

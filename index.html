@@ -10,18 +10,18 @@
 
         <div class="grid gap_l height_xl text-sans" style="height: 100vh;">
             <div class="start-2 end-12 self-end">
-                <div class="text-hero_m text-center">YouVersion Link Updater</div>
+                <div class="text-hero_m text-center">C3 YouVersion Events Link</div>
                 <hr class="ma-v_m">
             </div>
             <div class="start-3 end-11">
                 <div class="box bs_l bo-t_xs">
                     <form  name="youversion" action="/store" method="POST">
                         <div class="flex">
-                            <label class="box span-2 text-sans text-bold text-select-all span-half-t span-full-p text-keep" style="overflow:scroll;">https://youersion.thec3.uk</label>
+                            <label class="box span-2 text-sans text-bold text-select-all span-half-t span-full-p text-keep" style="overflow:scroll;"><span id="host-label">https://youversion.thec3.uk</span></label>
                             <label class="hide-t span-1 text-sans text-select-none ma-v_xs ma-h_s collapse-p"><i class="fas fa-arrow-right fa-2x"></i></label> 
                             <input type="url" name="link" placeholder="https://www.bible.com/events/XXXXX" class="input span-third span-half-t span-full-p"/>
                             <input class="button prime span-1 span-half-t span-full-p" type="submit" value="Update Link" />
-                            <a class="button ghost span-1 span-half-t span-full-p" target="_blank" href="https://youversion.thec3.uk">Test it</a>
+                            <a id="host-link" class="button ghost span-1 span-half-t span-full-p" target="_blank" href="https://youversion.thec3.uk">Test it</a>
                         </div>
                     </form>
                 </div>

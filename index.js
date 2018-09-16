@@ -8,14 +8,24 @@ async function getTemplate() {
     return await resp.text()
 }
 
+async function getHost(req) {
+    const url = new URL(req.url)
+    return await `${url.protocol}\/\/${url.host}`
+}
+
 const storeEventLink = async function(req, init) {
+    const host = await getHost(req)
     const template = await getTemplate()
     const doc = Document.parse(template)
+    const label = doc.getElementById('host-label')
+    label.replaceWith(host)
+    const link = doc.getElementById('host-link')
+    link.setAttribute('href', host)
     const html = doc.documentElement.outerHTML
     if (req.method === 'POST') {
         const data = await req.formData()
         const eventLinkStore = new Collection('eventLinkStore')
-        let res = await eventLinkStore.put('eventLink', data.get('link'))
+        let res = await eventLinkStore.put(host, data.get('link'))
         return new Response(`${res}`,{ 
             headers: {
                 "Location": req.url
@@ -28,13 +38,13 @@ const storeEventLink = async function(req, init) {
 }
 
 const redirectToEvent = async function(req, init) {
+    const host = await getHost(req)
     const eventLinkStore = new Collection('eventLinkStore')
-    const eventLink = await eventLinkStore.get('eventLink')
+    const eventLink = await eventLinkStore.get(host)
+    console.log(`Redirect link for ${host}: ${eventLink}`) 
     if (eventLink === undefined) {
         return new Response('Not Found', {status: 404})
     }
-    console.log(eventLink)
-    console.log(`Redirect link: ${eventLink}`) 
     return new Response('Redirecting', {
         headers: {
             'Location': eventLink

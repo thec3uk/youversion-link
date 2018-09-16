@@ -1,3 +1,4 @@
 app: youversion-link
 files:
     - index.html
+    - favicon.ico

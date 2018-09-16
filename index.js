@@ -43,8 +43,14 @@ const redirectToEvent = async function(req, init) {
     })
 }
 
+const getFavicon = async function(req, init) {
+    return await fetch("file://favicon.ico")
+}
+
 const mounts = mount({
+    '/favicon.ico': getFavicon,
     '/store': storeEventLink,
+    '/admin': storeEventLink,
     '/': redirectToEvent
 })
 
